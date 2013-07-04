@@ -5,8 +5,9 @@ class Cell
 	
 	attr_reader :card
 	
-	def initialize(window,location)
+	def initialize(window,location,board)
 		@window = window
+		@board = board
 		@location = location
 		@card = nil
 		@player = 0
@@ -26,8 +27,152 @@ class Cell
 		@owner = 0
 	end
 	
-	def play_card(card)
+	def play_card(card,player)
 		@card = card
+		self.take(player)
+		
+		case @location
+			
+		when 0
+			if @board.board[1].card
+				if @card.e > @board.board[1].card.w
+					@board.board[1].take(player)
+				end
+			end
+			if @board.board[3].card
+				if @card.s > @board.board[3].card.n
+					@board.board[3].take(player)
+				end
+			end
+			
+		when 1
+			if @board.board[0].card
+				if @card.w > @board.board[0].card.e
+					@board.board[0].take(player)
+				end
+			end
+			if @board.board[2].card
+				if @card.e > @board.board[2].card.w
+					@board.board[2].take(player)
+				end
+			end
+			if @board.board[4].card
+				if @card.s > @board.board[4].card.n
+					@board.board[4].take(player)
+				end
+			end
+			
+		when 2
+			if @board.board[1].card
+				if @card.w > @board.board[1].card.e
+					@board.board[1].take(player)
+				end
+			end
+			if @board.board[5].card
+				if @card.s > @board.board[5].card.n
+					@board.board[5].take(player)
+				end
+			end
+			
+		when 3
+			if @board.board[0].card
+				if @card.n > @board.board[0].card.s
+					@board.board[0].take(player)
+				end
+			end
+			if @board.board[4].card
+				if @card.e > @board.board[4].card.w
+					@board.board[4].take(player)
+				end
+			end
+			if @board.board[6].card
+				if @card.s > @board.board[6].card.n
+					@board.board[6].take(player)
+				end
+			end
+			
+		when 4
+			if @board.board[1].card
+				if @card.n > @board.board[1].card.s
+					@board.board[1].take(player)
+				end
+			end
+			if @board.board[3].card
+				if @card.w > @board.board[3].card.e
+					@board.board[3].take(player)
+				end
+			end
+			if @board.board[5].card
+				if @card.e > @board.board[5].card.w
+					@board.board[5].take(player)
+				end
+			end
+			if @board.board[7].card
+				if @card.s > @board.board[7].card.n
+					@board.board[7].take(player)
+				end
+			end
+			
+		when 5
+			if @board.board[2].card
+				if @card.n > @board.board[2].card.s
+					@board.board[2].take(player)
+				end
+			end
+			if @board.board[4].card
+				if @card.w > @board.board[4].card.e
+					@board.board[4].take(player)
+				end
+			end
+			if @board.board[8].card
+				if @card.s > @board.board[8].card.n
+					@board.board[8].take(player)
+				end
+			end
+			
+		when 6
+			if @board.board[3].card
+				if @card.n > @board.board[3].card.s
+					@board.board[3].take(player)
+				end
+			end
+			if @board.board[7].card
+				if @card.e > @board.board[7].card.w
+					@board.board[7].take(player)
+				end
+			end
+			
+		when 7
+			if @board.board[4].card
+				if @card.n > @board.board[4].card.s
+					@board.board[4].take(player)
+				end
+			end
+			if @board.board[6].card
+				if @card.w > @board.board[6].card.e
+					@board.board[6].take(player)
+				end
+			end
+			if @board.board[8].card
+				if @card.e > @board.board[8].card.w
+					@board.board[8].take(player)
+				end
+			end
+			
+		when 8
+			if @board.board[5].card
+				if @card.n > @board.board[5].card.s
+					@board.board[5].take(player)
+				end
+			end
+			if @board.board[7].card
+				if @card.w > @board.board[7].card.e
+					@board.board[7].take(player)
+				end
+			end
+			
+		end
+		
 	end
 	
 	def locate

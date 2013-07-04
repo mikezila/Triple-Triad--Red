@@ -32,6 +32,7 @@ require './rb/board.rb'
 require './rb/deck.rb'
 require './rb/cell.rb'
 require './rb/cursor.rb'
+require './rb/bot.rb'
 
 # Require the file with the card data
 require './rb/carddb.rb'
@@ -80,14 +81,11 @@ class GameWindow < Gosu::Window
 		@deck1 = Deck.new(self,1,deck_size)
 		@deck2 = Deck.new(self,2,deck_size)
 		
+		# Setup the bot
+		@bot = Bot.new(self,@board,@deck2)
+		
 		# Create the cursor
-		@cursor = Cursor.new(self,@board,@deck1)
-		
-		@game_state = true
-		@menu_state = false
-		
-		@deck1.to_s
-		@deck2.to_s
+		@cursor = Cursor.new(self,@board,@deck1,@bot)
 	end
 
 	# Don't hide the user's mouse, because that is
@@ -127,6 +125,9 @@ class GameWindow < Gosu::Window
 		if id == Gosu::KbO
 			@deck1.randomize
 		end
+		if id == Gosu::KbB
+			@bot.play
+		end
 		if id == Gosu::KbSpace
 			@cursor.place
 		end
@@ -162,22 +163,12 @@ class GameWindow < Gosu::Window
 		else
 			@music[@music_track].stop
 		end
-		
-		# This seems like a bad way to do game state
-		# management.  Will have to look into something
-		# better.  Maybe Chingu sometime down the road.
-		if @game_state
 			@background.draw(150,0,1)
-			@font.draw("FPS: #{@fps}", 160,10,2)
-			@font.draw("Game Board", 160,26,2)
+			@font.draw("FPS: #{@fps}", 190,10,2)
 			@board.draw
 			@deck1.draw
 			@deck2.draw
 			@cursor.draw
-		elsif @menu_state
-			@font.draw("FPS: #{@fps}", 160,10,2)
-			@font.draw("Menu that doesn't exist yet", 160,26,2)
-		end
 	end
 
 end

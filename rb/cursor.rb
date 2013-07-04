@@ -1,9 +1,10 @@
 class Cursor
 	
-	def initialize(window,board,deck)
+	def initialize(window,board,deck,rival)
 		@window = window
 		@board = board
 		@deck = deck
+		@rival = rival
 		
 		# Load the cursor sprite
 		@sprite = Gosu::Image.new(@window,"./tex/cursor.png")
@@ -44,8 +45,8 @@ class Cursor
 	def place
 		unless @board.board[@selected_cell].card
 			@sfx.play
-			@board.board[@selected_cell].play_card(@deck.pick)
-			@board.board[@selected_cell].take(1)
+			@board.board[@selected_cell].play_card(@deck.pick,1)
+			@rival.play
 		end
 	end
 	

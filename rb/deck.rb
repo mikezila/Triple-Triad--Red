@@ -51,17 +51,31 @@ class Deck
 		end
 	end
 	
+	def bot_pick
+		unless @deck.length == 0
+			@picked = @roll.rand(@deck.length)
+		end
+	end
+	
+	def empty?
+		if @deck.length == 0
+			return true
+		else
+			return false
+		end
+	end
+	
 	def picked
 		@picked
 	end
 	
 	def pick
 		unless @deck.length == 0
-			picked = @deck[@picked]
+			chosen = @deck[@picked]
 			@deck[@picked] = nil
 			@deck.compact!
 			@picked = 0
-			return picked
+			return chosen
 		end
 	end
 	

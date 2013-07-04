@@ -20,7 +20,7 @@ class Gameboard
 		# 6 7 8
 		
 		9.times do |i|
-			@board.push(Cell.new(@window,i))
+			@board.push(Cell.new(@window,i,self))
 		end
 		
 	end
@@ -31,9 +31,24 @@ class Gameboard
 		puts "Done."
 	end
 	
+	def played(player)
+		if player == 1
+			@bot.play
+		end
+	end
+	
 	def draw
-		# self.debug_fill_test
 		@board.each {|e| e.draw}
+	end
+	
+	def vacancy?
+		space = false
+		@board.each do |e|
+			unless e.card
+				space = true
+			end
+		end
+		return space
 	end
 	
 	def debug_fill
