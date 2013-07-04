@@ -1,39 +1,62 @@
 class Cursor
 	
-	def initialize(window)
+	def initialize(window,board,deck)
 		@window = window
-		@x = 60
-		@y = 60
+		@board = board
+		@deck = deck
 		
 		# Load the cursor sprite
 		@sprite = Gosu::Image.new(@window,"./tex/cursor.png")
 		
 		# Load that iconic menu sound
 		@sfx = Gosu::Sample.new(@window,"./snd/cursor.wav")
+		
+		# Start the cursor in the top left cell for now
+		@selected_cell = 0
 	end
 	
 	def draw
-		@sprite.draw(@x,@y,3,1.5,1.5)
+		@x = @board.board[@selected_cell].x
+		@y = @board.board[@selected_cell].y + 60
+		@sprite.draw(@x,@y,5,1.5,1.5)
 	end
 	
 	def up
 		@sfx.play
-		@y -= 65
+		@deck.pick_up
 	end
 	
 	def down
 		@sfx.play
-		@y += 65
+		@deck.pick_down
 	end
 	
 	def left
-		@sfx.play
-		@x -= 65
+		unless @selected_cell == 0
+			@sfx.play
+			@selected_cell -= 1
+		else
+			@sfx.play
+			@selected_cell = 8
+		end
+	end
+	
+	def place
+		unless @board.board[@selected_cell].card
+			@sfx.play
+			@board.board[@selected_cell].play_card(@deck.pick)
+			@board.board[@selected_cell].take(1)
+		end
 	end
 	
 	def right
-		@sfx.play
-		@x += 65
+		unless @selected_cell == 8
+			@sfx.play
+			@selected_cell += 1
+		else
+			@sfx.play
+			@selected_cell = 0
+		end
 	end
 	
 	def to_s

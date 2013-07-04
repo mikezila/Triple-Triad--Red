@@ -1,5 +1,7 @@
 class Gameboard
 
+	attr_reader :board
+
 	def initialize(window)
 		
 		@window = window
@@ -36,14 +38,14 @@ class Gameboard
 	
 	def debug_fill
 		@board.each do |e| 
-			debugcard = @cards[@roll.rand(@cards.length)]
-			e.playCard(Card.new(0,"DebugCard",1,1,1,1,0,0,debugcard))
+			e.play_card(Card.new(*$Cards[@roll.rand($Cards.length)]))
+			e.take(0)
 		end
 	end
 	
-	def debug_fill_test
-		@board.each do |e| 
-			e.playCard(Card.new(*$Cards[@roll.rand($Cards.length)]))
+	def debug_clear
+		@board.each do |e|
+			e.clear
 		end
 	end
 	

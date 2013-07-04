@@ -1,4 +1,10 @@
 class Cell
+	
+	attr_reader :x
+	attr_reader :y
+	
+	attr_reader :card
+	
 	def initialize(window,location)
 		@window = window
 		@location = location
@@ -10,9 +16,17 @@ class Cell
 		
 		# Calculate the position for drawing the card
 		self.locate
+		
+		@redback = Gosu::Image.new(window,"./tex/red.png")
+		@blueback = Gosu::Image.new(window,"./tex/blue.png")
 	end
 	
-	def playCard(card)
+	def clear
+		@card = nil
+		@owner = 0
+	end
+	
+	def play_card(card)
 		@card = card
 	end
 	
@@ -62,7 +76,15 @@ class Cell
 	end
 	
 	def draw
-		unless @card == nil		
+		unless @card == nil
+			
+			if @owner == 1
+				background = @blueback
+			else @owner == 2
+				background = @redback
+			end
+			
+			background.draw(@x,@y,2,@xscale,@yscale)
 			@card.art.draw(@x,@y,2,@xscale,@yscale)
 			@font.draw("#{@card.n}",@x+17,@y+12,3)
 			@font.draw("#{@card.s}",@x+17,@y+27,3)
@@ -72,7 +94,8 @@ class Cell
 	end
 	
 	def take(player)
-		# Player 1 is on the right, 2 on the left
+		# Player 1 is on the left, 2 on the right
+		# this is switched from the original game
 		@owner = player
 	end
 	
@@ -91,7 +114,9 @@ class Cell
 	end 
 	
 	def to_s
-		puts "Cell: #{@location} Card: #{@card.inspect} NSEW:#{@card.n}#{@card.s}#{@card.e}#{@card.w} Player: #{self.owner}"
+		if @card
+			puts "Cell: #{@location} Card: #{@card.inspect} NSEW:#{@card.n}#{@card.s}#{@card.e}#{@card.w} Player: #{self.owner}"
+		end
 	end
 	
 end

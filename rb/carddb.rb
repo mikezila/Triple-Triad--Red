@@ -117,7 +117,7 @@ class CardDB
   $Cards[89] = [89,"Diablos",5,10,8,3,8,"None",@art[23]]
   $Cards[90] = [90,"Leviathan",7,10,1,7,8,"Water",@art[50]]
   $Cards[91] = [91,"Odin",8,10,3,5,8,"None",@art[51]]
-  $Cards[92] = [92,"Pandemona",10,1,7,7,8,"Wind",@art[75]]
+  $Cards[92] = [92,"Pandemona",10,1,7,7,8,"Wind",@art[78]]
   $Cards[93] = [93,"Cerberus",7,4,6,10,8,"None",@art[79]]
   $Cards[94] = [94,"Alexander",9,10,4,2,8,"Holy",@art[106]]
   $Cards[95] = [95,"Phoenix",7,2,7,10,8,"Fire",@art[107]]

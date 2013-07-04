@@ -53,6 +53,8 @@ class GameWindow < Gosu::Window
 		@music = Array.new
 		@music.push(Gosu::Song.new(self,"./snd/bg.mp3"))
 		@music.push(Gosu::Song.new(self,"./snd/bg2.mp3"))
+		@music_track = 0
+		@music_enabled = true
 		
 		# Set the music to be half-volume, it is background after all
 		@music.each do |e|
@@ -62,14 +64,6 @@ class GameWindow < Gosu::Window
 		# Setup font for GUI and debug displays
 		@font = Gosu::Font.new(self,"Arial",14)
 		
-		# Make some game objects
-		@board = Gameboard.new(self)
-		@deck1 = Deck.new(6)
-		@deck2 = Deck.new(6)
-		
-		# Create the cursor
-		@cursor = Cursor.new(self)
-		
 		# Setup the carddb
 		# This is an ugly, empty class with a giant global array
 		# for the moment.  Might use a Marshal blob or YAML later
@@ -77,8 +71,23 @@ class GameWindow < Gosu::Window
 		# This isn't exactly enterprise level
 		@cardDB = CardDB.new(self)
 		
+		# Make some game objects
+		# The board that holds our gameplay area
+		@board = Gameboard.new(self)
+		
+		# A couple decks for the players to use
+		deck_size = 5
+		@deck1 = Deck.new(self,1,deck_size)
+		@deck2 = Deck.new(self,2,deck_size)
+		
+		# Create the cursor
+		@cursor = Cursor.new(self,@board,@deck1)
+		
 		@game_state = true
 		@menu_state = false
+		
+		@deck1.to_s
+		@deck2.to_s
 	end
 
 	# Don't hide the user's mouse, because that is
@@ -109,10 +118,24 @@ class GameWindow < Gosu::Window
     if id == Gosu::KbRight
       @cursor.right
     end
+		if id == Gosu::KbW
+			@board.debug_fill
+		end
+		if id == Gosu::KbC
+			@board.debug_clear
+		end
+		if id == Gosu::KbO
+			@deck1.randomize
+		end
 		if id == Gosu::KbSpace
-			@board.debug_fill_test
+			@cursor.place
+		end
+		if id == Gosu::KbP
+			@deck2.randomize
 		end
 		if id == Gosu::KbE
+			puts @deck1.to_s
+			puts @deck2.to_s
 			puts @board.to_s
 		end
 		if id == Gosu::KbQ
@@ -120,27 +143,41 @@ class GameWindow < Gosu::Window
 			@game_state = !@game_state
 			@menu_state = !@menu_state
 		end
+		if id == Gosu::KbN
+			@music_enabled = !@music_enabled
+		end
+		if id == Gosu::KbM
+			@music[@music_track].stop
+			@music_track += 1
+			if @music_track == @music.length
+				@music_track = 0
+			end
+		end
   end
 	
 	def draw
 		
+		if @music_enabled
+			@music[@music_track].play(true)
+		else
+			@music[@music_track].stop
+		end
+		
 		# This seems like a bad way to do game state
 		# management.  Will have to look into something
-		# better.
+		# better.  Maybe Chingu sometime down the road.
 		if @game_state
 			@background.draw(150,0,1)
 			@font.draw("FPS: #{@fps}", 160,10,2)
 			@font.draw("Game Board", 160,26,2)
 			@board.draw
+			@deck1.draw
+			@deck2.draw
+			@cursor.draw
 		elsif @menu_state
 			@font.draw("FPS: #{@fps}", 160,10,2)
 			@font.draw("Menu that doesn't exist yet", 160,26,2)
 		end
-		
-		@cursor.draw
-		# .play takes a boolean for if the music should loop
-		# it defaults to false if you don't pass it true
-		@music[0].play(true)
 	end
 
 end
