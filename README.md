@@ -10,6 +10,10 @@ Uses ugly white digits instead of pretty sprite numbers, but eh.
 Requirements
 ------------
 
+Ruby 1.9 and the Gosu gem
+
+	gem install gosu
+
 It was developed on OS X 10.8 using Ruby 1.9.3, and uses the Gosu gaming library.  It will work on Mac and Windows so long as Ruby is available and the Gosu gem is installed.  It will presumably work on Ruby 2.0 as well once Gosu is updated to support it, which as of this writing it does not.  It would work on Linux too if I converted the mp3 music to a format Linux didn't throw a hissy about, or if the music were disabled.
 
 Controls
