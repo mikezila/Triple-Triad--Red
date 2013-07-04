@@ -116,9 +116,6 @@ class GameWindow < Gosu::Window
     if id == Gosu::KbRight
       @cursor.right
     end
-		if id == Gosu::KbW
-			@board.debug_fill
-		end
 		if id == Gosu::KbC
 			@board.debug_clear
 		end
@@ -138,11 +135,6 @@ class GameWindow < Gosu::Window
 			puts @deck1.to_s
 			puts @deck2.to_s
 			puts @board.to_s
-		end
-		if id == Gosu::KbQ
-			# This seems ugly
-			@game_state = !@game_state
-			@menu_state = !@menu_state
 		end
 		if id == Gosu::KbN
 			@music_enabled = !@music_enabled
