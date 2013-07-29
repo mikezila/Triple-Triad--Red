@@ -3,9 +3,14 @@ Triple-Triad--Red
 
 A familiar card game, written in Ruby.
 
-The gameplay logic is mosly finished.  There's no way to select cards to use in your hand at the moment, you just get a random selection of five.  There's also no way to play against a human, just the very dumb bot.  There's also no tracking of what turn it is, how many cards each player controls, and the "game" doesn't end, the board just fills up.  Still, though, it works, and the basic rules are in and as they should be.
+The gameplay logic is mostly finished.  There's no way to select cards to use in your hand at the moment, you just get a random selection of five.  There's also no way to play against a human, just the very dumb bot.  There's also no tracking of what turn it is, how many cards each player controls, and the "game" doesn't end, the board just fills up.  Still, though, it works, and the basic rules are in and as they should be.
 
 Uses ugly white digits instead of pretty sprite numbers, but eh.
+
+Why?
+----
+
+Really just for fun.  Honestly this code is pretty bad overall.  A lot of it is hacky and un-Ruby like.  I plowed my way through this project while I was learning Ruby and Gosu, and am sharing mostly for historical reasons.
 
 Requirements
 ------------
@@ -14,7 +19,7 @@ Ruby 1.9 and the Gosu gem
 
 	gem install gosu
 
-It was developed on OS X 10.8 using Ruby 1.9.3, and uses the Gosu gaming library.  It will work on Mac and Windows so long as Ruby is available and the Gosu gem is installed.  It will presumably work on Ruby 2.0 as well once Gosu is updated to support it, which as of this writing it does not.  It would work on Linux too if I converted the mp3 music to a format Linux didn't throw a hissy about, or if the music were disabled.
+It was developed on OS X 10.8 using Ruby 1.9.3, and uses the Gosu gaming library.  It will work on Mac and Windows so long as Ruby is available and the Gosu gem is installed.  It would work on Linux too if I converted the mp3 music to a format Linux didn't throw a hissy about, or if the music were disabled.
 
 Controls
 --------
